@@ -7,9 +7,9 @@
 
 $GivEnergyPortalAPI = "apikey"
 $SerialNum = "serialno"
-$DateFirst = "2022-10-01"
+$DateFirst = Read-Host -Prompt "Enter start Date yyyy-MM-dd"
 $DatePick = $DateFirst
-$DateCount = 21
+$DateCount = Read-Host -Prompt "Enter number of days"
 $page = 1
 $pageSize = 300
 $DataPointsStr = "Date,Solar,Import,Export,Consumption,Battery`r`n"
