@@ -1,7 +1,7 @@
 # GivEnergy API powershell scripts
 
 ## GE-DaysDataPoints.ps1
-- Script to extract daily summary for a range of dates toa csv file
+- Script to extract daily summary for a range of dates to a csv file
 - edit to put in apikey and GivEnergy serial number
 - Save and run in powershell with right click
 - enter first date in yyyy-mm-dd format e.g. 2022-10-01
@@ -11,7 +11,7 @@
 - Works by extractign full data for each day, parsing into data object and looking for last entry which contains today totals
 
 ## GE-DaysFullDataPoints.ps1
-- Script to extract data at 5 mminute intervals for a range of dates toa csv file
+- Script to extract data at 5 mminute intervals for a range of dates to a csv file
 - edit to put in apikey and GivEnergy serial number
 - Save and run in powershell with right click
 - enter first date in yyyy-mm-dd format e.g. 2022-10-01
@@ -29,3 +29,12 @@
 - enter start date in yyyy-mm-dd format e.g. 2022-10-01
 - enter end date in yyyy-mm-dd format e.g. 2022-10-03
 - Creates a json text file with energy flow data
+
+## GE-DataPoints.ps1
+- Basic Script to retrive data points for a day in json format
+- edit to put in apikey and GivEnergy serial number
+- edit to change grouping required Default 0 = 30 minutes
+- Save and run in powershell with right click
+- enter start date in yyyy-mm-dd format e.g. 2022-10-01
+- Creates a json file with data points for that day
+- Can be used to see what fileds are available and allow other info to be extracted to csv files

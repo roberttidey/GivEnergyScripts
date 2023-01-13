@@ -47,8 +47,8 @@ for($index = 0; $index -lt $DateCount; $index++) {
 	$DatePick = $DateObj.ToString('yyyy-MM-dd')
 }
 
-$DataPointsStr | Out-File -FilePath .\DataPoints_$DateFirst.txt
-Write-Output "Data Saved to: DataPoints_(Date).txt"
+$DataPointsStr | Out-File -FilePath .\DaysDataPoints_$DateFirst.txt
+Write-Output "Data Saved to: DaysDataPoints_(Date).txt"
 Write-Output "All done - Exit in 5...." 
 start-sleep -s 5
 
