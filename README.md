@@ -31,10 +31,16 @@
 - Creates a json text file with energy flow data
 
 ## GE-DataPoints.ps1
-- Basic Script to retrive data points for a day in json format
+- Basic Script to retrieve data points for a day in json format
 - edit to put in apikey and GivEnergy serial number
 - edit to change grouping required Default 0 = 30 minutes
 - Save and run in powershell with right click
 - enter start date in yyyy-mm-dd format e.g. 2022-10-01
 - Creates a json file with data points for that day
-- Can be used to see what fileds are available and allow other info to be extracted to csv files
+- Can be used to see what fields are available and allow other info to be extracted to csv files
+
+## Example spreadsheet
+Datapoint.ods (or .xls) are an example spreadsheet to collect the output from GE-DaysDataPoints.ps1
+and summarise it. Open the txt file from running that script in a spreaadsheet program and then paste
+the data from the 5 columns into the corresponding date area on the spreadsheet.
+The sheet tab can be copied omto a new tab for further years.
