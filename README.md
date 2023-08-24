@@ -1,5 +1,7 @@
 # GivEnergy API powershell scripts
 
+Note that you may have to enable running powershell scripts. Search for a guide on how to do this.
+
 ## GE-DaysDataPoints.ps1
 - Script to extract daily summary for a range of dates to a csv file
 - edit to put in apikey and GivEnergy serial number
