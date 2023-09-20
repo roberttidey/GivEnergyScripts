@@ -11,7 +11,7 @@ $DateFirst = Read-Host -Prompt "Enter start Date yyyy-MM-dd"
 $DatePick = $DateFirst
 $DateCount = Read-Host -Prompt "Enter number of days"
 $page = 1
-$pageSize = 300
+$pageSize = 1000
 $DataPointsStr = "Date,Solar,Import,Export,Consumption,Battery`r`n"
 
 ########end user input#############

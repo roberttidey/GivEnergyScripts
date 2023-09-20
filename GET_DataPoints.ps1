@@ -6,7 +6,7 @@ $GivEnergyPortalAPI = "apikey"
 $SerialNum = "serialno"
 $DatePick = Read-Host -Prompt "Enter start Date yyyy-MM-dd"
 $page = 1
-$pageSize = 300
+$pageSize = 1000
 
 
 ########end user input#############

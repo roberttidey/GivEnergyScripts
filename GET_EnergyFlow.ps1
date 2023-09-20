@@ -27,7 +27,7 @@ $headers_Giv_En = @{
 
 $Giv_En =  Invoke-RestMethod -Method 'POST' -Uri https://api.givenergy.cloud/v1/inverter/$SerialNum/energy-flows"?" -Headers $headers_Giv_En -Body $body
 
-$Giv_En | ConvertTo-Json -depth 10 | Out-File -FilePath .\EnergyFlows_$DatePick.txt
+$Giv_En | ConvertTo-Json -depth 10 | Out-File -FilePath .\EnergyFlows_$DateStart.txt
 
 Write-Output "Data Saved to: EnergyFlows_(Date).txt"
 Write-Output "All done - Exit in 5...." 
