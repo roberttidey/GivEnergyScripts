@@ -22,16 +22,17 @@ Note that you may have to enable running powershell scripts. Search for a guide 
 - Other fields can be addded easily by extracting from JSON data object 
 - Works by extracting full data for each day, parsing into data object and iterating over all records
 
-## GE-DaysFluxDataPoints.ps1
-- Script to extract data over 5 Octopus Flux intervals for a range of dates to a csv file
+## GE-DaysIntervalDataPoints.ps1
+- Script to extract data over periods per day for a range of dates to a csv file
 - edit to put in apikey and GivEnergy serial number
 - Save and run in powershell with right click
 - enter first date in yyyy-mm-dd format e.g. 2022-10-01
 - enter number of days required
-- Creates a csv text file with fields for time then 5 times solar,import, export,consumption and battery percentage for each Flux period
-- Flux time periods can be changed by editing the $FluxTimes set up
-- Note there are 2 versions of this as times do not adjust for Daylight savings 
-- Works by extracting full data for each day, parsing into data object and iterating over all records looking for Flux periods
+- Creates a csv text file with fields date, periodindex,time,solar,import, export,consumption and battery percentage
+- Periods can be regular times set by $periodInterval in minutes
+- If $periodInterval is set to 0 then an array of fixed times in minutes is used ($IntervalTimes)
+- The default $IntervalTimes is for Octopus Flux 
+- Works by extracting full data for each day, parsing into data object and iterating over all records looking for the period data
 
 ## GE-EnergyFlow.ps1
 - Script to extract energyflow data
