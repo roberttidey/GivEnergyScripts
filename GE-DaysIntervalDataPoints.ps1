@@ -3,7 +3,9 @@
 
 #####User details here#####
 ##Givenergy Portal API Key Goes Below between " "
- 
+
+## if $Cumulative is 1 then values reported are cumulative, if 0 then energy differences are used.
+$Cumulative = 0
 
 $GivEnergyPortalAPI = "apikey"
 $SerialNum = "serialno"
@@ -75,16 +77,16 @@ function WriteDateFluxData {
 			$parArray[1] = formatMinutes($recminutes)
 			$temp = [Decimal]$Giv_Obj.Data[$rec].today.solar
 			$parArray[2] = $temp - $solarlast
-			$solarlast = $temp
-			$temp = [Decimal]$Giv_Obj.Data[$rec].today.import
+			if ($Cumulative -eq 0) {$solarlast = $temp}
+			$temp = [Decimal]$Giv_Obj.Data[$rec].today.grid.import
 			$parArray[3] = $temp - $importlast
-			$importlast = $temp
-			$temp = [Decimal]$Giv_Obj.Data[$rec].today.export
+			if ($Cumulative -eq 0) {$importlast = $temp}
+			$temp = [Decimal]$Giv_Obj.Data[$rec].today.grid.export
 			$parArray[4] = $temp - $exportlast
-			$exportlast = $temp
+			if ($Cumulative -eq 0) {$exportlast = $temp}
 			$temp = [Decimal]$Giv_Obj.Data[$rec].today.consumption
 			$parArray[5] = $temp - $consumptionlast
-			$consumptionlast = $temp
+			if ($Cumulative -eq 0) {$consumptionlast = $temp}
 			$parArray[6] = [Decimal]$Giv_Obj.Data[$rec].power.battery.percent 
 			$DataPointsStr = $DatePick + "," + ($parArray -join ",")
 			Add-Content .\IntervalDataPoints_$DateFirst.txt $DataPointsStr

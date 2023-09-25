@@ -29,6 +29,7 @@ Note that you may have to enable running powershell scripts. Search for a guide 
 - enter first date in yyyy-mm-dd format e.g. 2022-10-01
 - enter number of days required
 - Creates a csv text file with fields date, periodindex,time,solar,import, export,consumption and battery percentage
+- Energy values are kwH. If $Cumulative variable in script is set to 1 then values are running total. If 0 then they are the value in that period.
 - Periods can be regular times set by $periodInterval in minutes
 - If $periodInterval is set to 0 then an array of fixed times in minutes is used ($IntervalTimes)
 - The default $IntervalTimes is for Octopus Flux 
