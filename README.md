@@ -1,6 +1,7 @@
-# GivEnergy API powershell scripts
+# GivEnergy API powershell scripts + some python
 
-Note that you may have to enable running powershell scripts. Search for a guide on how to do this.
+For Powershell you may have to enable running powershell scripts. Search for a guide on how to do this.
+I have converted GE-DaysIntervalDataPoints.ps1 to a python version. I may do this to the others
 
 ## GE-DaysDataPoints.ps1
 - Script to extract daily summary for a range of dates to a csv file
@@ -53,6 +54,22 @@ Note that you may have to enable running powershell scripts. Search for a guide 
 - enter start date in yyyy-mm-dd format e.g. 2022-10-01
 - Creates a json file with data points for that day
 - Can be used to see what fields are available and allow other info to be extracted to csv files
+
+## GE-DaysIntervalDataPoints.py
+- Python version of GE-DaysIntervalDataPoints.py
+- to extract data over periods per day for a range of dates to a csv file
+- Might need requests modukle installed if not present 
+- edit to put in apikey and GivEnergy serial number
+- Save and run in a console window issuing python GE-DaysIntervalDataPoints.py
+- enter first date in yyyy-mm-dd format e.g. 2022-10-01
+- enter number of days required
+- Creates a csv text file with fields date, periodindex,time,solar,import, export,consumption and battery percentage
+- Energy values are kwH. If Cumulative variable in script is set to 1 then values are running total. If 0 then they are the value in that period.
+- Periods can be regular times set by periodInterval in minutes
+- If periodInterval is set to 0 then an array of fixed times in minutes is used (IntervalTimes)
+- The default IntervalTimes is for Octopus Flux 
+- Works by extracting full data for each day, parsing into data object and iterating over all records looking for the period data
+
 
 ## Example spreadsheet
 Datapoint.ods (or .xls) are an example spreadsheet to collect the output from GE-DaysDataPoints.ps1
