@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 Cumulative = 0
 GivEnergyPortalAPI = "apikey"
-SerialNum = "serialnum"
+SerialNum = "serialno"
 
 DateFirst = input("Enter start Date yyyy-MM-dd : ")
 DatePick = DateFirst
@@ -90,3 +90,5 @@ for index in range(DateCount):
   date = datetime.strptime(DatePick, "%Y-%m-%d")
   date = date + timedelta(days=1)
   DatePick = datetime.strftime(date, "%Y-%m-%d")
+
+print ("Data saved to ", datafilename)

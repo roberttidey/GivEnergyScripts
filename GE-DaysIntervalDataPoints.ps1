@@ -15,9 +15,8 @@ $DateCount = Read-Host -Prompt "Enter number of days"
 $page = 1
 $pageSize = 1000
 $DataPointsStr = "Date,Period,Time,Solar,Import,Export,Consumption,Battery"
-$GMTOffset = 0
 ## If PeriodInterval is 0 then IntervalTimes are used else it sets a regular interval throughout the day e.g. 30 minutes
-$PeriodInterval = 30
+$PeriodInterval = 0
 ## Intervaltimes array if PeriodInterval is 0.  Times in minutes in minutes
 ## default is for Flux periods
 $IntervalTimes = @(120,300,960,1140,1440)
@@ -33,8 +32,8 @@ $headers_Giv_En = @{
  }
 
  
-function justMinutes([String]$tmpTime) {
-	return ([Decimal]$tmpTime.Substring(11,2) * 60 + [Decimal]$tmpTime.Substring(14,2) + $GMTOffset) % 1440
+function justMinutes([String]$tmpTime, $offset) {
+	return ([Decimal]$tmpTime.Substring(11,2) * 60 + [Decimal]$tmpTime.Substring(14,2) + $offset) % 1440
 }
 
 function formatMinutes($tmpMinutes) {
@@ -50,6 +49,7 @@ function formatMinutes($tmpMinutes) {
 }
 
 function WriteDateFluxData {
+	$GMTOffset = 0	
 	$Giv_En =  Invoke-RestMethod -Method 'GET' -Uri https://api.givenergy.cloud/v1/inverter/$SerialNum/data-points/$DatePick"?"page=$page"&"pageSize=$pageSize -Headers $headers_Giv_En
 	$Giv_Obj = $Giv_En | ConvertTo-Json -depth 10 | ConvertFrom-Json
 
@@ -65,7 +65,7 @@ function WriteDateFluxData {
 	$consumptionlast = 0
 	$parArray = 0," ",0,0,0,0,0
 	for($rec = 0; $rec -lt $last; $rec++) {
-		$recminutes = justMinutes($Giv_Obj.Data[$rec].time)
+		$recminutes = justMinutes($Giv_Obj.Data[$rec].time, $GMTOffset)
 		if($PeriodInterval -eq 0) {
 			$nextPeriod = $IntervalTimes[$period]
 		}
