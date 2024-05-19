@@ -20,6 +20,7 @@ $PeriodInterval = 0
 ## Intervaltimes array if PeriodInterval is 0.  Times in minutes in minutes
 ## default is for Flux periods
 $IntervalTimes = @(120,300,960,1140,1440)
+$GMTOffset = 0
 
 ########end user input#############
 
@@ -32,16 +33,24 @@ $headers_Giv_En = @{
  }
 
  
-function justMinutes([String]$tmpTime, $offset) {
-	return ([Decimal]$tmpTime.Substring(11,2) * 60 + [Decimal]$tmpTime.Substring(14,2) + $offset) % 1440
+function justMinutes([String]$tmpTime) {
+	$minutes = [Decimal]$tmpTime.Substring(11,2) * 60 + [Decimal]$tmpTime.Substring(14,2) + $GMTOffset
+	if($minutes -gt 1439) {
+		$minutes = $minutes - 1440
+	}
+	return [int]$minutes
 }
 
 function formatMinutes($tmpMinutes) {
-	$h = [String]([int][Math]::Floor($tmpMinutes / 60))
+	$t = ([int]$tmpMinutes) / 60
+	$t = [Math]::Floor($t)
+	$t = [int]$t
+	$h = [String]($t)
 	if ($h.Length -eq 1) {
 		$h = "0" + $h
 	}
-	$m = [String]([int][Math]::Floor($tmpMinutes % 60))
+	$t = [int][Math]::Floor($tmpMinutes % 60)
+	$m = [String]$t
 	if ($m.Length -eq 1) {
 		$m = "0" + $m
 	}
@@ -54,7 +63,8 @@ function WriteDateFluxData {
 	$Giv_Obj = $Giv_En | ConvertTo-Json -depth 10 | ConvertFrom-Json
 
 	$last = $Giv_Obj.Data.Count
-	if(justMinutes($Giv_Obj.Data[0].time, $GMTOffset) -gt 10) {
+	$recminutes = justMinutes($Giv_Obj.Data[0].time)
+	if($recminutes -gt 10) {
 		$GMTOffset = 60
 	}
 	$period = 0
@@ -64,8 +74,9 @@ function WriteDateFluxData {
 	$exportlast = 0
 	$consumptionlast = 0
 	$parArray = 0," ",0,0,0,0,0
+	$nextPeriod = $IntervalTimes[$period]
 	for($rec = 0; $rec -lt $last; $rec++) {
-		$recminutes = justMinutes($Giv_Obj.Data[$rec].time, $GMTOffset)
+		$recminutes = justMinutes($Giv_Obj.Data[$rec].time)
 		if($PeriodInterval -eq 0) {
 			$nextPeriod = $IntervalTimes[$period]
 		}
@@ -108,6 +119,6 @@ for($index = 0; $index -lt $DateCount; $index++) {
 
 Write-Output "Data Saved to: IntervalDataPoints_(Date).txt"
 Write-Output "All done - Exit in 5...." 
-start-sleep -s 5
+start-sleep -s 45
 
 Exit 
