@@ -1,6 +1,9 @@
 import requests
 from decimal import Decimal
 from datetime import datetime, timedelta
+import os
+
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 Cumulative = 0
 GivEnergyPortalAPI = "apikey"
