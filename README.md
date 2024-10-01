@@ -59,8 +59,8 @@ For the python programs open a console window and run python <pythonscriptname>
 Datapoint.ods (or .xls) are an example spreadsheet to collect the output from GE-DaysDataPoints.ps1
 and summarise it. Open the txt file from running that script in a spreaadsheet program and then paste
 the data from the 5 columns into the corresponding date area on the spreadsheet.
-The sheet tab can be copied omto a new tab for further years.
+The sheet tab can be copied onto a new tab for further years.
 
 FluxData.ods is a spreadsheet that works with Flux data from the DaysIntervalDataPoints script.
 Open the output of the script in spreadsheet program using the csv format then copy and paste the data in the Time to Battery columns into the corresponding date rows of th emain spreadsheet.
-The flux import and export rates may be edited in the rates sheet.
+The flux import and export rates may be edited in the rates sheet. Multiple rates tables may be entered as prices vary. The main data sheets have a rates column which should contain the row number of the first rates line in each table.
