@@ -5,6 +5,16 @@ There are also python equivalents in the python folder. You may need to install 
 For Windows powershell scripts the easiest way to run is to right click the script file within file explorer.
 For the python programs open a console window and run python <pythonscriptname>
 
+You will need to edit the script before you can use it to add your inverter serial number and a GivEnergy Cloud API key.
+To create an API key, in the GivEnergy Portal:
+- Account Settings
+- Manage Account Security
+- Manage API Tokens
+- Generate New Token
+- Give the token a name, an expiry date and ensure that `api:inverter:data` and `api:meter:data` are selected
+- Create token
+- Click the copy icon to copy the token to your clipboard, then paste it into the script
+
 ## GE-DaysDataPoints
 - Script to extract daily summary for a range of dates to a csv file
 - edit to put in apikey and GivEnergy serial number
@@ -19,7 +29,7 @@ For the python programs open a console window and run python <pythonscriptname>
 - edit to put in apikey and GivEnergy serial number
 - enter first date in yyyy-mm-dd format e.g. 2022-10-01
 - enter number of days required
-- Creates a csv text file with fields for time,solar,import, export,consumption and battery percentage
+- Creates a csv text file with fields for date/time, solar today, solar total, import today, import total, export today, import total, consumption today, consumption total, battery charge today, battery discharge today and battery percentage
 - Other fields can be addded easily by extracting from JSON data object 
 - Works by extracting full data for each day, parsing into data object and iterating over all records
 
