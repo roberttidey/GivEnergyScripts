@@ -22,7 +22,7 @@ $headers_Giv_En = @{
     `"start_time`": `"$DateStart`",
     `"end_time`": `"$DateEnd`",
     `"grouping`": 0,
-    `"types`": [0,1,2,3,4,5]
+    `"types`": [0,1,2,3,4,5,6]
 }"
 
 $Giv_En =  Invoke-RestMethod -Method 'POST' -Uri https://api.givenergy.cloud/v1/inverter/$SerialNum/energy-flows"?" -Headers $headers_Giv_En -Body $body
