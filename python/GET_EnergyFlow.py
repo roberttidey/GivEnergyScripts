@@ -10,7 +10,7 @@ DateEnd = input("Enter End Date yyyy-MM-dd ")
 
 url = "https://api.givenergy.cloud/v1/inverter/" + SerialNum + "/energy-flows"
 headers = {'Authorization': "Bearer " + GivEnergyPortalAPI,'Content-Type' : 'application/json','Accept' : 'application/json'}
-body = "{\"start_time\": \"" + DateStart + "\",\"end_time\": \"" + DateEnd + "\",\"grouping\": 0,\"types\": [0,1,2,3,4,5]}"
+body = "{\"start_time\": \"" + DateStart + "\",\"end_time\": \"" + DateEnd + "\",\"grouping\": 0,\"types\": [0,1,2,3,4,5,6]}"
 response = requests.post(url, headers = headers, data = body)
 if response.status_code == 200:
   datafilename = ".\EnergyFlows_" + DateStart + ".json"
