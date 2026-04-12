@@ -31,9 +31,8 @@ function WriteDateFullPickData {
 	$last = $Giv_Obj.Data.Count
 	for($rec = 0; $rec -lt $last; $rec++) {
         # GivEnergy portal holds all data with date/times in UTC, so in summertime a 'day' starts and ends at 23:00 UTC
-        # Extract date/time from GivEnergy data and convert to datetime object which automatically converts to local time (and adjusts for summertime offset)
-        $rectime = [datetime]::Parse($Giv_Obj.Data[$rec].time)
-
+        # Extract date/time from GivEnergy data
+		$rectime = $Giv_Obj.Data[$rec].time
         # extract other inverter data items we are interested in
 		$solarToday = $Giv_Obj.Data[$rec].today.solar
 		$importToday = $Giv_Obj.Data[$rec].today.grid.import
