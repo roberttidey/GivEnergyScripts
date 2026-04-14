@@ -1,7 +1,10 @@
 import requests
 from decimal import Decimal
 from datetime import datetime, timedelta
+import pytz
 import os
+
+TIMEZONE = pytz.timezone('Europe/London')
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
@@ -17,6 +20,13 @@ DataPointsStr = "Date,Solar Today,Solar Total,Import Today,Import Total,Export T
 
 TWOPLACES = Decimal('0.01')
 
+def localTimeStamp(timestamp):
+    # Take an XML date (2013-04-08T22:35:00Z)
+    # return e.g. 08/04 23:35
+    utc_dt = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%SZ')
+    bst = utc_dt.replace(tzinfo=pytz.utc).astimezone(TIMEZONE)
+    return bst.strftime('%Y-%m-%d %H:%M:%S')
+
 def WriteDateFullData():
   GMTOffset = 0
   url = "https://api.givenergy.cloud/v1/inverter/" + SerialNum + "/data-points/" + DatePick + "?page=" + str(pageX) + "&pageSize=" + str(pageSizeX)
@@ -26,7 +36,7 @@ def WriteDateFullData():
   last = len(Data)
   parArray = ["","","","","","","","","","","",""]
   for rec in range(last):
-    parArray[0] = Data[rec]['time']
+    parArray[0] = localTimeStamp(Data[rec]['time'])
     parArray[1] = str(Decimal(Data[rec]['today']['solar']).quantize(TWOPLACES))
     parArray[2] = str(Decimal(Data[rec]['total']['solar']).quantize(TWOPLACES))
     parArray[3] = str(Decimal(Data[rec]['today']['grid']['import']).quantize(TWOPLACES))
