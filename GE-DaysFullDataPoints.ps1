@@ -32,7 +32,17 @@ function WriteDateFullPickData {
 	for($rec = 0; $rec -lt $last; $rec++) {
         # GivEnergy portal holds all data with date/times in UTC, so in summertime a 'day' starts and ends at 23:00 UTC
         # Extract date/time from GivEnergy data
-		$rectime = $Giv_Obj.Data[$rec].time
+		$timeString = $Giv_Obj.Data[$rec].time
+
+		if ([datetime]::Parse($timeString)) {
+				$rectime = [datetime]::Parse($timeString)
+			}
+		else {
+			$rectime = [datetime]::ParseExact(
+				$timeString,
+				'MM/dd/yyyy HH:mm:ss',
+				[System.Globalization.CultureInfo]::InvariantCulture
+			)
         # extract other inverter data items we are interested in
 		$solarToday = $Giv_Obj.Data[$rec].today.solar
 		$importToday = $Giv_Obj.Data[$rec].today.grid.import
