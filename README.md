@@ -74,3 +74,34 @@ The sheet tab can be copied onto a new tab for further years.
 FluxData.ods is a spreadsheet that works with Flux data from the DaysIntervalDataPoints script.
 Open the output of the script in spreadsheet program using the csv format then copy and paste the data in the Time to Battery columns into the corresponding date rows of th emain spreadsheet.
 The flux import and export rates may be edited in the rates sheet. Multiple rates tables may be entered as prices vary. The main data sheets have a rates column which should contain the row number of the first rates line in each table.
+
+## Experimental HomeAssistant statistics - python
+HA_statistics.py is a python program to transform the long term GivEnergy statistics into a compatible form as the existing GivEnergy api versions.
+
+The intention is to keep existing functionality even when the ai is no longer freely available.
+Prerequisites are a HomeAssistant server with GivTCP added and the import_statistics integration added (which includes an export statistics function.
+https://github.com/klausj1/homeassistant-statistics
+
+The import_statistics.export_statistics action is configures to export to statistics.json and with entities
+- sensor.givtcp_ce2142g336_pv_power
+- sensor.givtcp_ce2142g336_import_power
+- sensor.givtcp_ce2142g336_export_power
+- sensor.givtcp_ce2142g336_load_power
+- sensor.givtcp_be2209g171_battery_soc
+
+The start time and end time dates should be set to the first and last dates and the time must be set to 00:00:00 in both cases
+
+The perform action button will then produce a statistics.json file with that entity data.
+
+The statistics.json file is in the homeassistant folder and may be downloaded using the file editor. 
+
+The HA_statistics file needs to have the jsonfilename and the datafilename configured. E.g. the [user] field should be replaced with your username if on a windows machine.
+
+When run it offers a choice of 3 different outputs
+  0) Summary line per day
+  1) Summary for a number of intervals during each day like Octopus Flux
+  2) Hourly data during each day  
+  
+The output is a csv file which may be opened with a spreadheet program
+
+Possible enhancements are to add further integration in HomeAssistant to make to reduce the number of steps needed.
