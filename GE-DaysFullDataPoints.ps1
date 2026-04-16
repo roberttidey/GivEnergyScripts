@@ -43,6 +43,7 @@ function WriteDateFullPickData {
 				'MM/dd/yyyy HH:mm:ss',
 				[System.Globalization.CultureInfo]::InvariantCulture
 			)
+		}
         # extract other inverter data items we are interested in
 		$solarToday = $Giv_Obj.Data[$rec].today.solar
 		$importToday = $Giv_Obj.Data[$rec].today.grid.import
