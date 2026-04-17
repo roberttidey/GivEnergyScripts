@@ -13,7 +13,7 @@ Cumulative = 0
 Mode = int(input("Mode (0=Sumary by day, 1=Summary by interval, 2=Full : "))
 DataPointsStr = "Date,Period,Time,Solar,Import,Export,Consumption,Battery\n"
 ## default is for Flux periods in hours
-IntervalTimes = [[23],[2,5,16,19,23],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]]
+IntervalTimes = [[23],[1,4,15,18,23],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]]
 FieldNames = ['pv_power','import_power','export_power','load_power','battery_soc']
 data_values = [[] for i in range(5)]
 parValues = [5]
@@ -32,7 +32,7 @@ def WriteCSV():
         parValues[len(parValues) - 1] = data_values[len(parValues) - 1][rec]
         if (rec % 24) == intervals[interval]:
             parArray[0] = str(interval)
-            parArray[1] = str(rec % 24).rjust(2, '0') + ":00"
+            parArray[1] = str(rec % 24).rjust(2, '0') + ":59"
             parArray[2] = str(round(parValues[0]/1000,2))
             parArray[3] = str(round(parValues[1]/1000,2))
             parArray[4] = str(round(parValues[2]/1000,2))
