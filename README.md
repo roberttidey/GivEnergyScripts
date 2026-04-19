@@ -83,11 +83,12 @@ Prerequisites are a HomeAssistant server with GivTCP added and the import_statis
 https://github.com/klausj1/homeassistant-statistics
 
 The import_statistics.export_statistics action is configures to export to statistics.json and with entities
-- sensor.givtcp_ce2142g336_pv_power
-- sensor.givtcp_ce2142g336_import_power
-- sensor.givtcp_ce2142g336_export_power
-- sensor.givtcp_ce2142g336_load_power
-- sensor.givtcp_be2209g171_battery_soc
+- sensor.givtcp_ce12345678_pv_power
+- sensor.givtcp_ce12345678_import_power
+- sensor.givtcp_ce12345678_export_power
+- sensor.givtcp_ce12345678_load_power
+- sensor.givtcp_bece12345678_battery_soc
+replace the ids with your own
 
 The start time and end time dates should be set to the first and last dates and the time must be set to 00:00:00 in both cases
 
