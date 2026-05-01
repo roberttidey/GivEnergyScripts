@@ -1,3 +1,4 @@
+##Python script to transform statistics.json file from Home assistant into one or more csv files
 import requests
 from decimal import Decimal
 from datetime import datetime, timedelta
@@ -6,11 +7,16 @@ import os
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
-datafilename = "c:/users/[user]/Downloads/DataPoints_"
-jsonfilename = "c:/users/[user]/Downloads/statistics.json"
+datafilenamepath = "c:/users/{username}robert/Downloads/DataPoints_"
+datafilename = ""
+jsonfilename = "c:/users/{username}/Downloads/statistics.json"
 
-Cumulative = 0
-Mode = int(input("Mode (0=Sumary by day, 1=Summary by interval, 2=Full : "))
+## Modes has list of output file types to output
+## Leave empty to enter manually
+Modes = []
+
+if len(Modes) == 0:
+    Modes = input("Modes csv list (0=Sumary by day, 1=Summary by interval, 2=Full : ").split(',')
 DataPointsStr = "Date,Period,Time,Solar,Import,Export,Consumption,Battery\n"
 ## default is for Flux periods in hours
 IntervalTimes = [[23],[1,4,15,18,23],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]]
@@ -21,10 +27,10 @@ parValues = [5]
 TWOPLACES = Decimal('0.01')
 daydates = []
 
-def WriteCSV():
+def WriteCSV(mode):
     parArray = ["","","","","","",""]
     parValues = [0] * len(FieldNames)
-    intervals = IntervalTimes[Mode]
+    intervals = IntervalTimes[mode]
     interval = 0
     for rec in range(len(data_values[0])):
         for par in range(len(parValues) - 1):
@@ -39,7 +45,7 @@ def WriteCSV():
             parArray[5] = str(round(parValues[3]/1000,2))
             parArray[6] = str(round(parValues[len(parValues) - 1]))
             day = rec // 24
-            dateStr = daydates[day][6:10] + '-' +daydates[day][3:5] + '-' + daydates[day][0:2] 
+            dateStr = daydates[day][6:10] + '-' +daydates[day][3:5] + '-' + daydates[day][0:2]
             DataPointsStr = dateStr + "," + ','.join(parArray) + "\n"
             with open(datafilename, 'a') as datafile:
                 datafile.write(DataPointsStr)
@@ -74,10 +80,11 @@ def GetFieldValues():
 
 if GetFieldValues() == 0:
     datestr = daydates[0][6:10] + daydates[0][3:5] + daydates[0][0:2]
-    datafilename = datafilename + str(Mode) + "_" + datestr + ".txt"
-    with open(datafilename, 'w') as datafile:
-        datafile.write(DataPointsStr)
-    WriteCSV()
+    for Mode in Modes:
+        datafilename = datafilenamepath + str(Mode) + "_" + datestr + ".txt"
+        with open(datafilename, 'w') as datafile:
+            datafile.write(DataPointsStr)
+        WriteCSV(int(Mode))
+        print ("Data saved to ", datafilename)
 else:
    print ("Parsing values error")
-print ("Data saved to ", datafilename)

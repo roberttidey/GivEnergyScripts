@@ -98,11 +98,13 @@ The statistics.json file is in the homeassistant folder and may be downloaded us
 
 The HA_statistics file needs to have the jsonfilename and the datafilename configured. E.g. the [user] field should be replaced with your username if on a windows machine.
 
-When run it offers a choice of 3 different outputs
+When run it can output in one or more formats 3 different outputs
   0) Summary line per day
   1) Summary for a number of intervals during each day like Octopus Flux
-  2) Hourly data during each day  
+  2) Hourly data during each day
+
+The Modes list in the python may contain a csv list of formats required or if left blank will prompt for input.  
   
-The output is a csv file which may be opened with a spreadheet program
+The outputs are csv file which may be opened with a spreadheet program
 
 Possible enhancements are to add further integration in HomeAssistant to make to reduce the number of steps needed.
