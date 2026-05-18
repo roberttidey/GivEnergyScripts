@@ -75,10 +75,10 @@ FluxData.ods is a spreadsheet that works with Flux data from the DaysIntervalDat
 Open the output of the script in spreadsheet program using the csv format then copy and paste the data in the Time to Battery columns into the corresponding date rows of th emain spreadsheet.
 The flux import and export rates may be edited in the rates sheet. Multiple rates tables may be entered as prices vary. The main data sheets have a rates column which should contain the row number of the first rates line in each table.
 
-## Experimental HomeAssistant statistics - python
+## HomeAssistant statistics - python
 HA_statistics.py is a python program to transform the long term GivEnergy statistics into a compatible form as the existing GivEnergy api versions.
 
-The intention is to keep existing functionality even when the ai is no longer freely available.
+The intention is to keep existing functionality even when the api is no longer freely available.
 Prerequisites are a HomeAssistant server with GivTCP added and the import_statistics integration added (which includes an export statistics function.
 https://github.com/klausj1/homeassistant-statistics
 
@@ -95,12 +95,15 @@ The start time and end time dates should be set to the first and last dates and 
 The perform action button will then produce a statistics.json file with that entity data.
 
 This can be made easier by creating a script to do the same and then creating a dashboard card with 2 date pickers and the script.
+1) Create two input_datetime helpers ; One called start with entity_ID input_datetime.stats_start, and a second called end with entity_ID input_datetime.stats_end. Both should be set to Date.
+2) Create a HomeAssistant script export statistics. The contents of HA_ExportScript.yaml is the script action required. The entity ids will need to be edited to insert the correct inverterId.
+3) Create or add a card on a Dashboard with the two date picker entities and the script entity
 
-The statistics.json file is in the homeassistant folder and may be downloaded using the file editor. 
+The statistics.json file will be produced in the homeassistant folder and may be downloaded using the file editor. 
 
-The HA_statistics file needs to have the jsonfilename and the datafilename configured. E.g. the [user] field should be replaced with your username if on a windows machine.
+The HA_statistics.py file needs to have the jsonfilename and the datafilename configured. E.g. the [user] field should be replaced with your username if on a windows machine.
 
-When run it can output in one or more formats 3 different outputs
+When run it can output(s) in one or more formats 3 different outputs
   0) Summary line per day
   1) Summary for a number of intervals during each day like Octopus Flux
   2) Hourly data during each day

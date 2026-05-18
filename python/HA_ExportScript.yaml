@@ -1,0 +1,23 @@
+exportstatistics:
+  sequence:
+  - action: import_statistics.export_statistics
+    metadata: {}
+    data:
+      split_by: none
+      counter_fields: both
+      decimal: dot ('.')
+      filename: statistics.json
+      entities:
+      - sensor.givtcp_invertID_pv_power
+      - sensor.givtcp_invertID_import_power
+      - sensor.givtcp_invertID_export_power
+      - sensor.givtcp_invertID_load_power
+      - sensor.givtcp_invertID_soc
+      start_time: '{{ (states(''input_datetime.stats_start'') | as_datetime).strftime(''%Y-%m-%d
+        %H:%M:%S'') }}
+
+        '
+      end_time: '{{ (states(''input_datetime.stats_end'') | as_datetime).strftime(''%Y-%m-%d
+        %H:%M:%S'') }}
+
+        '
